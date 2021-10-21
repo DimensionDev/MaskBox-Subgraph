@@ -1,0 +1,13 @@
+{
+  "chainId": 56,
+  "network": "bsc",
+  "contracts": [
+    {
+      "name": "Maskbox",
+      "description": "Maskbox for bsc mainnet",
+      "address": "0x0000000000000000000000000000000000000000",
+      "startBlock": 0,
+      "abi": "Maskbox"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "chainId": 4,
+  "network": "rinkeby",
+  "contracts": [
+    {
+      "name": "Maskbox",
+      "description": "Maskbox for rinkeby",
+      "address": "0xbFcf8210F5B6764D86a9C5252218ad627A6a949d",
+      "startBlock": 9369286,
+      "abi": "Maskbox"
+    }
+  ]
+}

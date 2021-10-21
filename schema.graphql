@@ -1,0 +1,21 @@
+type NFTContract @entity {
+  id: ID!
+  address: Bytes!
+  name: String!
+  chain_id: Int!
+}
+
+type Maskbox @entity {
+  id: ID!
+  chain_id: Int!
+  box_id: String!
+  blockNumber: BigInt!
+  creator: Bytes!
+  nft_address: Bytes!
+  name: String!
+  create_time: Int!
+  start_time: Int!
+  end_time: Int!
+  sell_all: Boolean!
+  nft_contract: NFTContract!
+}

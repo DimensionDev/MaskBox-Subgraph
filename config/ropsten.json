@@ -1,0 +1,13 @@
+{
+  "chainId": 3,
+  "network": "ropsten",
+  "contracts": [
+    {
+      "name": "Maskbox",
+      "description": "Maskbox for ropsten",
+      "address": "0x0000000000000000000000000000000000000000",
+      "startBlock": 0,
+      "abi": "Maskbox"
+    }
+  ]
+}

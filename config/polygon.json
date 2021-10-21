@@ -1,0 +1,13 @@
+{
+  "chainId": 137,
+  "network": "matic",
+  "contracts": [
+    {
+      "name": "Maskbox",
+      "description": "Maskbox for matic mainnet",
+      "address": "0x0000000000000000000000000000000000000000",
+      "startBlock": 0,
+      "abi": "Maskbox"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+specVersion: 0.0.2
+description: {{description}}
+schema:
+  file: ./schema.graphql
+dataSources:  
+{{#contracts}}
+  - kind: ethereum/contract
+    name: {{abi}}
+    network: {{network}}
+    source:
+      address: "{{address}}"
+      abi: {{abi}}
+      startBlock: {{startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - ClaimSuccess
+        - CreationSuccess
+        - RefundSuccess
+      abis:
+        - name: Maskbox
+          file: ./abis/Maskbox.json
+        - name: ERC721
+          file: ./abis/ERC721.json
+        - name: ERC721NameBytes
+          file: ./abis/ERC721NameBytes.json
+      eventHandlers:
+        - event: CreationSuccess(indexed address,indexed address,uint256,string,uint32,uint32,bool)
+          handler: handleCreationSuccess
+      file: ./src/mapping.ts
+{{/contracts}}      
