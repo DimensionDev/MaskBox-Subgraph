@@ -4,14 +4,14 @@ import { CHAIN_ID } from "./constants";
 import { fetchNFTContract } from "./helpers";
 
 export function handleCreationSuccess(event: CreationSuccess): void {
-  let txHash = event.transaction.hash.toHexString();
-  let maskbox = new Maskbox(txHash);
+  let maskbox = new Maskbox(event.params.box_id.toString());
 
   let nftContract = fetchNFTContract(event.params.nft_address);
   nftContract.save();
 
   let boxId = event.params.box_id.toString();
   maskbox.chain_id = CHAIN_ID;
+  maskbox.tx_hash = event.transaction.hash;
   maskbox.box_id = boxId;
   maskbox.blockNumber = event.block.number;
   maskbox.creator = event.params.creator;

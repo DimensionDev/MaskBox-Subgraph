@@ -7,6 +7,7 @@ type NFTContract @entity {
 
 type Maskbox @entity {
   id: ID!
+  tx_hash: Bytes!
   chain_id: Int!
   box_id: String!
   blockNumber: BigInt!
