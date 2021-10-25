@@ -5,8 +5,8 @@
     {
       "name": "Maskbox",
       "description": "Maskbox for eth mainnet",
-      "address": "0x0000000000000000000000000000000000000000",
-      "startBlock": 0,
+      "address": "0x0dFB34D213f613Dda67a2924F60b5301d42ABFb7",
+      "startBlock": 13396393,
       "abi": "Maskbox"
     }
   ]
