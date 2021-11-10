@@ -29,5 +29,7 @@ dataSources:
       eventHandlers:
         - event: CreationSuccess(indexed address,indexed address,uint256,string,uint32,uint32,bool)
           handler: handleCreationSuccess
+        - event: OpenSuccess(indexed uint256,indexed address,indexed address,uint256)
+          handler: handleOpenSuccess
       file: ./src/mapping.ts
 {{/contracts}}      

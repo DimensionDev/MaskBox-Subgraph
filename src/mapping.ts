@@ -1,7 +1,7 @@
-import { CreationSuccess } from "../generated/Maskbox/Maskbox";
+import { CreationSuccess, OpenSuccess } from "../generated/Maskbox/Maskbox";
 import { Maskbox } from "../generated/schema";
 import { CHAIN_ID } from "./constants";
-import { fetchNFTContract } from "./helpers";
+import { fetchCustomerPurchasedNFTList, fetchNFTContract } from "./helpers";
 
 export function handleCreationSuccess(event: CreationSuccess): void {
   let maskbox = new Maskbox(event.params.box_id.toString());
@@ -22,5 +22,26 @@ export function handleCreationSuccess(event: CreationSuccess): void {
   maskbox.sell_all = event.params.sell_all;
   maskbox.nft_contract = nftContract.id;
   maskbox.create_time = event.block.timestamp.toI32();
+  maskbox.sold_nft_list = [];
   maskbox.save();
+}
+
+export function handleOpenSuccess(event: OpenSuccess): void {
+  let maskbox = Maskbox.load(event.params.box_id.toString());
+
+  let customer = event.params.customer.toHexString();
+  let creator = maskbox.creator.toHexString();
+
+  if (customer != creator) {
+    let nft_list = fetchCustomerPurchasedNFTList(
+      event.params.box_id,
+      event.params.customer
+    );
+    for (let i = 0; i < nft_list.length; ++i) {
+      if (!maskbox.sold_nft_list.includes(nft_list[i])) {
+        maskbox.sold_nft_list = maskbox.sold_nft_list.concat([nft_list[i]]);
+      }
+    }
+    maskbox.save();
+  }
 }

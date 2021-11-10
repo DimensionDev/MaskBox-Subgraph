@@ -1,6 +1,12 @@
-import { Address } from "@graphprotocol/graph-ts";
+import { Address, BigInt, log } from "@graphprotocol/graph-ts";
 import { NFTContract } from "../generated/schema";
-import { CHAIN_ID, ERC721, ERC721NameBytes } from "./constants";
+import {
+  CHAIN_ID,
+  ERC721,
+  MaskboxContract,
+  ERC721NameBytes,
+  MASKBOX_CONTRACT_ADDRESS,
+} from "./constants";
 
 export function isNullEthValue(value: string): boolean {
   return (
@@ -40,4 +46,22 @@ export function fetchNFTContractName(address: Address): string {
   }
 
   return nameValue;
+}
+
+export function fetchCustomerPurchasedNFTList(
+  boxId: BigInt,
+  customer: Address
+): BigInt[] {
+  let contract = MaskboxContract.bind(
+    Address.fromString(MASKBOX_CONTRACT_ADDRESS)
+  );
+  let nftListResult = contract.try_getPurchasedNft(boxId, customer);
+  if (nftListResult.reverted) {
+    log.error(`Fails to getPurchasedNft of %s for boxId: %s`, [
+      boxId.toString(),
+      customer.toHexString(),
+    ]);
+    return [];
+  }
+  return nftListResult.value;
 }

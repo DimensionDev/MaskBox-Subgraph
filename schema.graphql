@@ -19,4 +19,5 @@ type Maskbox @entity {
   end_time: Int!
   sell_all: Boolean!
   nft_contract: NFTContract!
+  sold_nft_list: [BigInt!]!
 }

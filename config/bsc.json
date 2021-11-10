@@ -9,5 +9,6 @@
       "startBlock": 0,
       "abi": "Maskbox"
     }
-  ]
+  ],
+  "contractAddress": "0x0000000000000000000000000000000000000000"
 }
