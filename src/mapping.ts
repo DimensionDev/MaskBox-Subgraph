@@ -1,4 +1,8 @@
-import { CreationSuccess, OpenSuccess } from "../generated/Maskbox/Maskbox";
+import {
+  CancelSuccess,
+  CreationSuccess,
+  OpenSuccess,
+} from "../generated/Maskbox/Maskbox";
 import { Maskbox } from "../generated/schema";
 import { CHAIN_ID } from "./constants";
 import { fetchCustomerPurchasedNFTList, fetchNFTContract } from "./helpers";
@@ -23,6 +27,7 @@ export function handleCreationSuccess(event: CreationSuccess): void {
   maskbox.nft_contract = nftContract.id;
   maskbox.create_time = event.block.timestamp.toI32();
   maskbox.sold_nft_list = [];
+  maskbox.canceled = false;
   maskbox.save();
 }
 
@@ -44,4 +49,11 @@ export function handleOpenSuccess(event: OpenSuccess): void {
     }
     maskbox.save();
   }
+}
+
+export function handleCancelSuccess(event: CancelSuccess): void {
+  let maskbox = Maskbox.load(event.params.box_id.toString());
+
+  maskbox.canceled = true;
+  maskbox.save();
 }

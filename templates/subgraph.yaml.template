@@ -31,5 +31,7 @@ dataSources:
           handler: handleCreationSuccess
         - event: OpenSuccess(indexed uint256,indexed address,indexed address,uint256)
           handler: handleOpenSuccess
+        - event: CancelSuccess(indexed uint256,indexed address)
+          handler: handleCancelSuccess
       file: ./src/mapping.ts
 {{/contracts}}      
