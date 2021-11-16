@@ -33,5 +33,7 @@ dataSources:
           handler: handleOpenSuccess
         - event: CancelSuccess(indexed uint256,indexed address)
           handler: handleCancelSuccess
+        - event: ClaimPayment(indexed address,indexed uint256,address,uint256,uint256)
+          handler: handleClaimPayment
       file: ./src/mapping.ts
 {{/contracts}}      

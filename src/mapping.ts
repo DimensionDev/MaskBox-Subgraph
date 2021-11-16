@@ -1,5 +1,6 @@
 import {
   CancelSuccess,
+  ClaimPayment,
   CreationSuccess,
   OpenSuccess,
 } from "../generated/Maskbox/Maskbox";
@@ -28,6 +29,7 @@ export function handleCreationSuccess(event: CreationSuccess): void {
   maskbox.create_time = event.block.timestamp.toI32();
   maskbox.sold_nft_list = [];
   maskbox.canceled = false;
+  maskbox.claimed = false;
   maskbox.save();
 }
 
@@ -50,5 +52,12 @@ export function handleCancelSuccess(event: CancelSuccess): void {
   let maskbox = Maskbox.load(event.params.box_id.toString());
 
   maskbox.canceled = true;
+  maskbox.save();
+}
+
+export function handleClaimPayment(event: ClaimPayment): void {
+  let maskbox = Maskbox.load(event.params.box_id.toString());
+
+  maskbox.claimed = true;
   maskbox.save();
 }

@@ -21,4 +21,5 @@ type Maskbox @entity {
   nft_contract: NFTContract!
   sold_nft_list: [BigInt!]!
   canceled: Boolean!
+  claimed: Boolean!
 }
