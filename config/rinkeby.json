@@ -5,10 +5,10 @@
     {
       "name": "Maskbox",
       "description": "Maskbox for rinkeby",
-      "address": "0xbFcf8210F5B6764D86a9C5252218ad627A6a949d",
-      "startBlock": 9369286,
+      "address": "0xc3D410eDd9C54662fa3D87731bfAf33EBbf04A39",
+      "startBlock": 9696656,
       "abi": "Maskbox"
     }
   ],
-  "contractAddress": "0xbFcf8210F5B6764D86a9C5252218ad627A6a949d"
+  "contractAddress": "0xc3D410eDd9C54662fa3D87731bfAf33EBbf04A39"
 }
