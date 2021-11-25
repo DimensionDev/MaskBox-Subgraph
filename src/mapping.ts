@@ -36,6 +36,9 @@ export function handleCreationSuccess(event: CreationSuccess): void {
 export function handleOpenSuccess(event: OpenSuccess): void {
   let maskbox = Maskbox.load(event.params.box_id.toString());
 
+  if (maskbox.creator == event.params.customer && maskbox.sell_all) {
+    return;
+  }
   let nft_list = fetchCustomerPurchasedNFTList(
     event.params.box_id,
     event.params.customer
