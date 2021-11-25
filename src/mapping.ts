@@ -1,3 +1,4 @@
+import { BigInt } from "@graphprotocol/graph-ts";
 import {
   CancelSuccess,
   ClaimPayment,
@@ -28,24 +29,34 @@ export function handleCreationSuccess(event: CreationSuccess): void {
   maskbox.nft_contract = nftContract.id;
   maskbox.create_time = event.block.timestamp.toI32();
   maskbox.sold_nft_list = [];
+  maskbox.drawed_by_customer = [];
   maskbox.canceled = false;
   maskbox.claimed = false;
   maskbox.save();
 }
 
+function listAdd<T>(list: T[], item: T): T[] {
+  if (!list.includes(item)) {
+    return list.concat([item]);
+  }
+  return list;
+}
+
 export function handleOpenSuccess(event: OpenSuccess): void {
   let maskbox = Maskbox.load(event.params.box_id.toString());
 
-  if (maskbox.creator == event.params.customer && maskbox.sell_all) {
-    return;
-  }
   let nft_list = fetchCustomerPurchasedNFTList(
     event.params.box_id,
     event.params.customer
   );
+  let is_creator = maskbox.creator === event.params.customer;
   for (let i = 0; i < nft_list.length; ++i) {
-    if (!maskbox.sold_nft_list.includes(nft_list[i])) {
-      maskbox.sold_nft_list = maskbox.sold_nft_list.concat([nft_list[i]]);
+    maskbox.sold_nft_list = listAdd<BigInt>(maskbox.sold_nft_list, nft_list[i]);
+    if (!is_creator) {
+      maskbox.drawed_by_customer = listAdd<BigInt>(
+        maskbox.drawed_by_customer,
+        nft_list[i]
+      );
     }
   }
   maskbox.save();
