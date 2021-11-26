@@ -5,10 +5,10 @@
     {
       "name": "Maskbox",
       "description": "Maskbox for eth mainnet",
-      "address": "0x0dFB34D213f613Dda67a2924F60b5301d42ABFb7",
-      "startBlock": 13396393,
+      "address": "0x294428f04b0F9EbC49B7Ad61E2736ebD6808c145",
+      "startBlock": 13687866,
       "abi": "Maskbox"
     }
   ],
-  "contractAddress": "0x0dFB34D213f613Dda67a2924F60b5301d42ABFb7"
+  "contractAddress": "0x294428f04b0F9EbC49B7Ad61E2736ebD6808c145"
 }
