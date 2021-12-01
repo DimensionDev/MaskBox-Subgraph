@@ -5,7 +5,7 @@ import {
   CreationSuccess,
   OpenSuccess,
 } from "../generated/Maskbox/Maskbox";
-import { Maskbox } from "../generated/schema";
+import { Maskbox, User } from "../generated/schema";
 import { CHAIN_ID } from "./constants";
 import { fetchCustomerPurchasedNFTList, fetchNFTContract } from "./helpers";
 
@@ -44,6 +44,18 @@ function listAdd<T>(list: T[], item: T): T[] {
 
 export function handleOpenSuccess(event: OpenSuccess): void {
   let maskbox = Maskbox.load(event.params.box_id.toString());
+  let user = User.load(event.params.customer.toHexString());
+
+  if (user == null) {
+    user = new User(event.params.customer.toHexString());
+    user.nft_contracts = [];
+  }
+
+  user.nft_contracts = listAdd<string>(
+    user.nft_contracts,
+    maskbox.nft_contract
+  );
+  user.save();
 
   let nft_list = fetchCustomerPurchasedNFTList(
     event.params.box_id,

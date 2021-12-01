@@ -24,3 +24,8 @@ type Maskbox @entity {
   canceled: Boolean!
   claimed: Boolean!
 }
+
+type User @entity {
+  id: ID!
+  nft_contracts: [NFTContract!]!
+}
