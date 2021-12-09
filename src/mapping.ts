@@ -15,7 +15,7 @@ export function handleCreationSuccess(event: CreationSuccess): void {
   let nftContract = fetchNFTContract(event.params.nft_address);
   nftContract.save();
 
-  let boxId = event.params.box_id.toString();
+  let boxId = event.params.box_id.toI32();
   maskbox.chain_id = CHAIN_ID;
   maskbox.tx_hash = event.transaction.hash;
   maskbox.box_id = boxId;

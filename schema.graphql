@@ -9,7 +9,7 @@ type Maskbox @entity {
   id: ID!
   tx_hash: Bytes!
   chain_id: Int!
-  box_id: String!
+  box_id: Int!
   blockNumber: BigInt!
   creator: Bytes!
   nft_address: Bytes!
