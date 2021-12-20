@@ -29,3 +29,8 @@ type User @entity {
   id: ID!
   nft_contracts: [NFTContract!]!
 }
+
+type MaskboxStatistic @entity {
+  id: ID!
+  total: Int!
+}

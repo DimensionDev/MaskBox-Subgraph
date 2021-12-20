@@ -5,12 +5,25 @@ import {
   CreationSuccess,
   OpenSuccess,
 } from "../generated/Maskbox/Maskbox";
-import { Maskbox, User } from "../generated/schema";
+import { Maskbox, MaskboxStatistic, User } from "../generated/schema";
 import { CHAIN_ID } from "./constants";
 import { fetchCustomerPurchasedNFTList, fetchNFTContract } from "./helpers";
 
 export function handleCreationSuccess(event: CreationSuccess): void {
   let maskbox = new Maskbox(event.params.box_id.toString());
+  let totalCreatorId: string = "0x0000000000000000000000000000000000000000";
+  let totalStatistic = MaskboxStatistic.load(totalCreatorId);
+  if (totalStatistic == null) {
+    totalStatistic = new MaskboxStatistic(totalCreatorId);
+    totalStatistic.total = 0;
+  }
+
+  let creatorHex = event.params.creator.toHexString();
+  let creatorStatistic = MaskboxStatistic.load(creatorHex);
+  if (creatorStatistic == null) {
+    creatorStatistic = new MaskboxStatistic(creatorHex);
+    creatorStatistic.total = 0;
+  }
 
   let nftContract = fetchNFTContract(event.params.nft_address);
   nftContract.save();
@@ -33,6 +46,11 @@ export function handleCreationSuccess(event: CreationSuccess): void {
   maskbox.canceled = false;
   maskbox.claimed = false;
   maskbox.save();
+
+  creatorStatistic.total = creatorStatistic.total + 1;
+  creatorStatistic.save();
+  totalStatistic.total = totalStatistic.total + 1;
+  totalStatistic.save();
 }
 
 function listAdd<T>(list: T[], item: T): T[] {
@@ -40,6 +58,18 @@ function listAdd<T>(list: T[], item: T): T[] {
     return list.concat([item]);
   }
   return list;
+}
+
+function listPreadd<T>(list: T[], item: T): T[] {
+  let index = list.indexOf(item);
+  let arr: T[] = [item];
+  if (index === -1) {
+    return arr.concat(list);
+  } else {
+    let copy = list.slice();
+    copy.splice(index, 1);
+    return arr.concat(copy);
+  }
 }
 
 export function handleOpenSuccess(event: OpenSuccess): void {
@@ -51,7 +81,7 @@ export function handleOpenSuccess(event: OpenSuccess): void {
     user.nft_contracts = [];
   }
 
-  user.nft_contracts = listAdd<string>(
+  user.nft_contracts = listPreadd<string>(
     user.nft_contracts,
     maskbox.nft_contract
   );
