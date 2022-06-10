@@ -5,10 +5,10 @@
     {
       "name": "Maskbox",
       "description": "Maskbox for matic mainnet",
-      "address": "0x02F98667b3A1202a320F67a669a5e4e451fD0cc1",
-      "startBlock": 21810592,
+      "address": "0xbC7d98985966f56A66B0cB5F23d865676dc2ac84",
+      "startBlock": 29379279,
       "abi": "Maskbox"
     }
   ],
-  "contractAddress": "0x02F98667b3A1202a320F67a669a5e4e451fD0cc1"
+  "contractAddress": "0xbC7d98985966f56A66B0cB5F23d865676dc2ac84"
 }
